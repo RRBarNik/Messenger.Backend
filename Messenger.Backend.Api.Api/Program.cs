@@ -17,9 +17,12 @@ namespace Messenger.Backend.Api.Api
     {
         public static void Main(string[] args)
         {
+            string basedir = AppDomain.CurrentDomain.BaseDirectory;
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .WriteTo.File("MessengerWebAppLog-.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(basedir + "../../../../Logs/MessengerWebAppLog-.txt",
+                    rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             var host = CreateHostBuilder(args).Build();
