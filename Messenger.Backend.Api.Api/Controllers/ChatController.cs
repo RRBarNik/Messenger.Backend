@@ -4,7 +4,6 @@ using Messenger.Backend.Api.Core.Chats.Commands.CreateChat;
 using Messenger.Backend.Api.Core.Chats.Commands.DeleteChat;
 using Messenger.Backend.Api.Core.Chats.Commands.UpdateChat;
 using Messenger.Backend.Api.Core.Chats.Queries.GetChatList;
-using Messenger.Backend.Api.Core.Messages.Commands.CreateMessage;
 using Messenger.Backend.Api.Core.Messages.Queries.GetMessageList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -3,7 +3,6 @@ using Messenger.Backend.Api.Api.Models.Message;
 using Messenger.Backend.Api.Core.Messages.Commands.CreateMessage;
 using Messenger.Backend.Api.Core.Messages.Commands.DeleteMessage;
 using Messenger.Backend.Api.Core.Messages.Commands.UpdateMessage;
-using Messenger.Backend.Api.Core.Messages.Queries.GetMessageList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
