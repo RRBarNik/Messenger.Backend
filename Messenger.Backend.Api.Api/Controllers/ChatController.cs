@@ -38,7 +38,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         {
             var query = new GetChatListQuery
             {
-                UserId = Guid.Parse("351a3466-21eb-419e-a0ea-4e282124c318"),
+                UserId = UserId,
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
