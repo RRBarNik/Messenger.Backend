@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F9D4A732-EDC1-4D83-A104-18B3025C092F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Backend.Api.Core", "Messenger.Backend.Api.Core\Messenger.Backend.Api.Core.csproj", "{A07BB9D6-552B-426E-B2BE-D5DC8D2F0D5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Backend.Api.Data.PostgreSql", "Messenger.Backend.Api.Data.PostgreSql\Messenger.Backend.Api.Data.PostgreSql.csproj", "{BD398ED3-FAC6-4BCF-9F70-9321EAD9592A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messenger.Backend.Api.Api", "Messenger.Backend.Api.Api\Messenger.Backend.Api.Api.csproj", "{DD44DD83-0097-4124-831C-AAE128B348D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A07BB9D6-552B-426E-B2BE-D5DC8D2F0D5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A07BB9D6-552B-426E-B2BE-D5DC8D2F0D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A07BB9D6-552B-426E-B2BE-D5DC8D2F0D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A07BB9D6-552B-426E-B2BE-D5DC8D2F0D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD398ED3-FAC6-4BCF-9F70-9321EAD9592A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD398ED3-FAC6-4BCF-9F70-9321EAD9592A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD398ED3-FAC6-4BCF-9F70-9321EAD9592A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD398ED3-FAC6-4BCF-9F70-9321EAD9592A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD44DD83-0097-4124-831C-AAE128B348D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD44DD83-0097-4124-831C-AAE128B348D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD44DD83-0097-4124-831C-AAE128B348D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD44DD83-0097-4124-831C-AAE128B348D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A07BB9D6-552B-426E-B2BE-D5DC8D2F0D5D} = {F9D4A732-EDC1-4D83-A104-18B3025C092F}
+		{BD398ED3-FAC6-4BCF-9F70-9321EAD9592A} = {F9D4A732-EDC1-4D83-A104-18B3025C092F}
+		{DD44DD83-0097-4124-831C-AAE128B348D7} = {F9D4A732-EDC1-4D83-A104-18B3025C092F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48894A86-0392-4C2A-B7F8-8C94AC5165A8}
+	EndGlobalSection
+EndGlobal
