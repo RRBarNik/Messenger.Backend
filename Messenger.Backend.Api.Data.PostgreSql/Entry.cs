@@ -14,7 +14,8 @@ namespace Messenger.Backend.Api.Data.PostgreSql
         ///Регистрация зависимостей проекта
         /// </summary>
         /// <param name="services">Сервис</param>
-        /// <returns>контейнер зависимостей</returns>
+        /// <param name="configuration">Конфигурация</param>
+        /// <returns>Контейнер зависимостей</returns>
         public static IServiceCollection AddPostgreSql(
             this IServiceCollection services,
             IConfiguration configuration)
@@ -23,7 +24,7 @@ namespace Messenger.Backend.Api.Data.PostgreSql
 
             services.AddDbContext<MessengerDbContext>(options =>
             {
-            options.UseNpgsql(connectionString);
+                options.UseNpgsql(connectionString);
             });
 
             services.AddScoped<IMessengerDbContext>(provider =>

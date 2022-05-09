@@ -3,20 +3,24 @@ using System.Collections.Generic;
 
 namespace Messenger.Backend.Api.Core.Entities
 {
+    /// <summary>
+    /// Чат
+    /// </summary>
     public class Chat
     {
         /// <summary>
-        /// Ид чата.
+        /// Идентификатор чата
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Имя чата.
+        /// Имя чата
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Список сообщений, которые содержаться в чате
+        /// </summary>
         public List<Message> Messages { get; set; } = new();
-
-        //public ICollection<User> Users { get; set; }
     }
 }

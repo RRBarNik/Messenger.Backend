@@ -24,18 +24,6 @@ namespace Messenger.Backend.Api.Core.Chats.Queries.GetChatList
             CancellationToken cancellationToken)
         {
             var chatsQuery = await _dbContext.Messages
-                /*
-                .FromSqlInterpolated(
-@$"SELECT m.chat_id, c.""name"", m.body, c.id
-FROM public.messages AS m
-LEFT OUTER JOIN public.chats AS c 
-ON c.id  = m.chat_id 
-WHERE m.user_id = {request.UserId}
-AND m.date_of_creation
-IN
-(SELECT Max(m.date_of_creation)
-FROM public.messages AS m
-GROUP BY m.chat_id)")*/
                 .Where(pt => pt.UserId == request.UserId)
                 .Select(pt => pt.Chat)
                 .ProjectTo<ChatLookupDto>(_mapper.ConfigurationProvider)

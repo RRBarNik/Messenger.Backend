@@ -8,10 +8,13 @@ namespace Messenger.Backend.Api.Core.Messages.Queries.GetMessageList
     public class MessageLookupDto : IMapWith<Message>
     {
         /// <summary>
-        /// Текст сообщения.
+        /// Тело сообщения
         /// </summary>
         public string Body { get; set; }
 
+        /// <summary>
+        /// Дата создания сообщения
+        /// </summary>
         public DateTimeOffset DateOfCreation { get; set; }
 
         public void Mapping(Profile profile)

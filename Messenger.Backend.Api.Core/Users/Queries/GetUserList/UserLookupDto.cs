@@ -8,12 +8,12 @@ namespace Messenger.Backend.Api.Core.Users.Queries.GetUserList
     public class UserLookupDto : IMapWith<User>
     {
         /// <summary>
-        /// Ид пользователя.
+        /// Идентификатор пользователя
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Никнейм пользователя.
+        /// Никнейм
         /// </summary>
         public string Nickname { get; set; }
 

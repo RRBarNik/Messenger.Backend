@@ -4,7 +4,6 @@ using Messenger.Backend.Api.Core.Chats.Commands.CreateChat;
 using Messenger.Backend.Api.Core.Chats.Commands.DeleteChat;
 using Messenger.Backend.Api.Core.Chats.Commands.UpdateChat;
 using Messenger.Backend.Api.Core.Chats.Queries.GetChatList;
-using Messenger.Backend.Api.Core.Messages.Commands.CreateMessage;
 using Messenger.Backend.Api.Core.Messages.Queries.GetMessageList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +37,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         {
             var query = new GetChatListQuery
             {
-                UserId = Guid.Parse("351a3466-21eb-419e-a0ea-4e282124c318"),
+                UserId = UserId,
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);

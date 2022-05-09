@@ -7,37 +7,40 @@ namespace Messenger.Backend.Api.Core.Users.Queries.GetUserDetails
 {
     public class UserDetailsVm : IMapWith<User>
     {
+        /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Никнейм пользователя.
+        /// Никнейм
         /// </summary>
         public string Nickname { get; set; }
 
         /// <summary>
-        /// Имя.
+        /// Имя
         /// </summary>
         public string Firstname { get; set; }
 
         /// <summary>
-        /// Фамилия.
+        /// Фамилия
         /// </summary>
         public string Lastname { get; set; }
 
         /// <summary>
-        /// Роль.
+        /// Роль
         /// </summary>
         public string Role { get; set; }
         //TODO: change to enum
 
         /// <summary>
-        /// Роль.
+        /// Статус активности
         /// </summary>
         public string ActiveStatus { get; set; }
         //TODO: change to enum
 
         /// <summary>
-        /// Дата создания пользователя
+        /// Дата создания
         /// </summary>
         public DateTimeOffset DateOfCreation { get; set; }
 

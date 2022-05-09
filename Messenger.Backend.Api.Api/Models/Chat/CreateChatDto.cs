@@ -4,8 +4,14 @@ using Messenger.Backend.Api.Core.Common.Mappings;
 
 namespace Messenger.Backend.Api.Api.Models.Chat
 {
+    /// <summary>
+    /// Dto для создания чата
+    /// </summary>
     public class CreateChatDto : IMapWith<CreateChatCommand>
     {
+        /// <summary>
+        /// Имя чата
+        /// </summary>
         public string Name { get; set; }
 
         public void Mapping(Profile profile)

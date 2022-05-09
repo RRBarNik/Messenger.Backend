@@ -8,12 +8,12 @@ namespace Messenger.Backend.Api.Core.Chats.Queries.GetChatList
     public class ChatLookupDto : IMapWith<Chat>
     {
         /// <summary>
-        /// Ид чата.
+        /// Идентификатор чата
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Имя чата.
+        /// Имя
         /// </summary>
         public string Name { get; set; }
 

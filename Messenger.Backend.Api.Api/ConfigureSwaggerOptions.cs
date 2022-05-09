@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
 using System.Reflection;
 
 namespace Messenger.Backend.Api.Api
@@ -24,9 +23,7 @@ namespace Messenger.Backend.Api.Api
                     new OpenApiInfo
                     {
                         Version = apiVersion,
-                        Title = $"Messenger API {apiVersion}",
-                        Description =
-                            "A simple example ASP NET Core Web API. Professional way"
+                        Title = $"Messenger API {apiVersion}"
                     });
 
                 options.AddSecurityDefinition($"AuthToken {apiVersion}",

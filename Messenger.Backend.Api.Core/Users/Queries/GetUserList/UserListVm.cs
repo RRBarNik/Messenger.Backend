@@ -8,6 +8,9 @@ namespace Messenger.Backend.Api.Core.Users.Queries.GetUserList
 {
     public class UserListVm
     {
+        /// <summary>
+        /// Список пользователей
+        /// </summary>
         public IList<UserLookupDto> Users { get; set; }
     }
 }

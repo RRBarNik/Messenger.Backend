@@ -5,21 +5,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Messenger.Backend.Api.Api.Models.User
 {
+    /// <summary>
+    /// Dto для создания пользователя
+    /// </summary>
     public class CreateUserDto : IMapWith<CreateUserCommand>
     {
         /// <summary>
-        /// Никнейм пользователя.
+        /// Никнейм
         /// </summary>
-        [Required]
         public string Nickname { get; set; }
 
         /// <summary>
-        /// Имя.
+        /// Имя
         /// </summary>
         public string Firstname { get; set; }
 
         /// <summary>
-        /// Фамилия.
+        /// Фамилия
         /// </summary>
         public string Lastname { get; set; }
 
