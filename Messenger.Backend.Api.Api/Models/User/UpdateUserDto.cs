@@ -6,23 +6,28 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Messenger.Backend.Api.Api.Models.User
 {
+    /// <summary>
+    /// Dto для обновления пользователя
+    /// </summary>
     public class UpdateUserDto : IMapWith<UpdateUserCommand>
     {
+        /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// Никнейм пользователя.
+        /// Обновленный никнейм
         /// </summary>
-        [Required]
         public string Nickname { get; set; }
 
         /// <summary>
-        /// Имя.
+        /// Обновленное имя
         /// </summary>
         public string Firstname { get; set; }
 
         /// <summary>
-        /// Фамилия.
+        /// Обновленная фамилия
         /// </summary>
         public string Lastname { get; set; }
 

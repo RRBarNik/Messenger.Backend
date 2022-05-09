@@ -22,12 +22,12 @@ namespace Messenger.Backend.Api.Data.PostgreSql
         public DbSet<User> Users { get; set; }
 
         /// <summary>
-        /// Чаты.
+        /// Чаты
         /// </summary>
         public DbSet<Chat> Chats { get; set; }
 
         /// <summary>
-        /// Сообщения.
+        /// Сообщения
         /// </summary>
         public DbSet<Message> Messages { get; set; }
 

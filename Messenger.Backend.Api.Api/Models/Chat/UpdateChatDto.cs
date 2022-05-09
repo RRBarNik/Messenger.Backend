@@ -5,13 +5,19 @@ using System;
 
 namespace Messenger.Backend.Api.Api.Models.Chat
 {
+    /// <summary>
+    /// Dto для обновления чата
+    /// </summary>
     public class UpdateChatDto : IMapWith<UpdateChatCommand>
     {
         /// <summary>
-        /// Ид чата.
+        /// Идентификатор чата
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// Новое имя чата
+        /// </summary>
         public string Name { get; set; }
 
         public void Mapping(Profile profile)

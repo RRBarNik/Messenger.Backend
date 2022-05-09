@@ -10,12 +10,12 @@ namespace Messenger.Backend.Api.Core.Chats.Commands.UpdateChat
     public class UpdateChatCommand : IRequest
     {
         /// <summary>
-        /// Ид чата.
+        /// Идентификатор чата
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Имя чата.
+        /// Новое имя
         /// </summary>
         public string Name { get; set; }
     }

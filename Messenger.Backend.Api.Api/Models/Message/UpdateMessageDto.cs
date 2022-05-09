@@ -2,19 +2,28 @@
 using Messenger.Backend.Api.Core.Common.Mappings;
 using Messenger.Backend.Api.Core.Messages.Commands.UpdateMessage;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Messenger.Backend.Api.Api.Models.Message
 {
+    /// <summary>
+    /// Dto для обновления сообщения
+    /// </summary>
     public class UpdateMessageDto : IMapWith<UpdateMessageCommand>
     {
+        /// <summary>
+        /// Идентификатор чата, к которому относится сообщение
+        /// </summary>
         public Guid ChatId { get; set; }
 
+        /// <summary>
+        /// Дата создания сообщения
+        /// </summary>
         public DateTimeOffset DateOfCreation { get; set; }
 
+        /// <summary>
+        /// Новое тело сообщения
+        /// </summary>
         [Required]
         public string Body { get; set; }
 
