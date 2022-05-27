@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Messenger.Backend.Api.Api.Models.Chat;
-using Messenger.Backend.Api.Core.Chats.Commands.CreateChat;
-using Messenger.Backend.Api.Core.Chats.Commands.DeleteChat;
-using Messenger.Backend.Api.Core.Chats.Commands.UpdateChat;
-using Messenger.Backend.Api.Core.Chats.Queries.GetChatList;
-using Messenger.Backend.Api.Core.Messages.Queries.GetMessageList;
+using Messenger.Backend.Api.Api.Models.User;
+using Messenger.Backend.Api.Core.Users.Commands.CreateUser;
+using Messenger.Backend.Api.Core.Users.Commands.DeleteUser;
+using Messenger.Backend.Api.Core.Users.Commands.UpdateUser;
+using Messenger.Backend.Api.Core.Users.Queries.GetUserDetails;
+using Messenger.Backend.Api.Core.Users.Queries.GetUserList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,117 +15,122 @@ namespace Messenger.Backend.Api.Api.Controllers
     [ApiVersion("1.0")]
     [Produces("application/json")]
     [Route("api/{version:apiVersion}/[controller]")]
-    public class ChatController : BaseController
+    public class UsersController : BaseController
     {
         private readonly IMapper _mapper;
 
-        public ChatController(IMapper mapper) =>
+        public UsersController(IMapper mapper) =>
             _mapper = mapper;
 
         /// <summary>
-        /// Gets the list of chats
+        /// Gets the list of user
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /chat
+        /// GET /users
         /// </remarks>
-        /// <returns>Returns ChatListVm</returns>
+        /// <returns>Returns UserListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<ChatListVm>> GetAll()
+        public async Task<ActionResult<UserListVm>> GetAll()
         {
-            var query = new GetChatListQuery
+            var query = new GetUserListQuery
             {
-                UserId = UserId,
+                UserId = UserId
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
         /// <summary>
-        /// Gets the list of messages
+        /// Gets the user by id
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /message
+        /// GET /user/D34D349E-43B8-429E-BCA4-793C932FD580
         /// </remarks>
-        /// <returns>Returns MessageListVm</returns>
+        /// <param name="id">User id (guid)</param>
+        /// <returns>Returns UserDetailsVm</returns>
         /// <response code="200">Success</response>
-        /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{chatId}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<MessageListVm>> Get(Guid chatId)
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<UserDetailsVm>> Get(Guid id)
         {
-            var query = new GetMessageListQuery
+            var query = new GetUserDetailsQuery
             {
-                ChatId = chatId,
+                Id = id,
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
 
         /// <summary>
-        /// Creates the Chat
+        /// Creates the user
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /chat
+        /// POST /user
         /// {
-        ///     name: "name of chat"
+        ///     nickname: "User Nickname",
+        ///     firstname: "User Firstname",
+        ///     lastname: "User Lastname"
         /// }
         /// </remarks>
-        /// <param name="createChatDto">CreateChatDto object</param>
+        /// <param name="createUserDto">CreateUserDto object</param>
         /// <returns>Returns id (guid)</returns>
         /// <response code="201">Success</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateChatDto createChatDto)
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto)
         {
-            var chatCommand = _mapper.Map<CreateChatCommand>(createChatDto);
-            var chatId = await Mediator.Send(chatCommand);
-            return Ok(chatId);
+            var command = _mapper.Map<CreateUserCommand>(createUserDto);
+            command.UserId = UserId;
+            var userId = await Mediator.Send(command);
+            return Ok(userId);
         }
 
         /// <summary>
-        /// Updates the chat
+        /// Updates the user
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /chat
+        /// PUT /user
         /// {
-        ///     name: "updated chat name"
+        ///     nickname: "updated User Nickname",
+        ///     firstname: "updated User Firstname",
+        ///     lastname: "updated User Lastname"
         /// }
         /// </remarks>
-        /// <param name="updateChatDto">UpdateChatDto object</param>
+        /// <param name="updateUserDto">UpdateUserDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Update([FromBody] UpdateChatDto updateChatDto)
+        public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
         {
-            var command = _mapper.Map<UpdateChatCommand>(updateChatDto);
+            var command = _mapper.Map<UpdateUserCommand>(updateUserDto);
             await Mediator.Send(command);
             return NoContent();
         }
 
         /// <summary>
-        /// Deletes the chat by id
+        /// Deletes the user by id
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE chat/88DEB432-062F-43DE-8DCD-8B6EF79073D3
+        /// DELETE /user/88DEB432-062F-43DE-8DCD-8B6EF79073D3
         /// </remarks>
-        /// <param name="id">Id of the chat (guid)</param>
+        /// <param name="id">Id of the user (guid)</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Delete([FromBody] Guid id)
         {
-            var command = new DeleteChatCommand
+            var command = new DeleteUserCommand
             {
-                Id = id
+                UserId = id,
             };
             await Mediator.Send(command);
             return NoContent();
