@@ -100,8 +100,6 @@ namespace Messenger.Backend.Api.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseAuthentication();
-
             app.UseSwagger();
             app.UseSwaggerUI(config =>
             {
@@ -115,6 +113,10 @@ namespace Messenger.Backend.Api.Api
             });
             app.UseCustomExceptionHandler();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseHttpsRedirection();
 
             app.UseCors(builder => builder.AllowCredentials().WithOrigins("http://localhost:3000")/*"AllowAll"*/);

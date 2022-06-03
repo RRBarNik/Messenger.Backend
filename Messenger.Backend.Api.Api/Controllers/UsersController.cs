@@ -4,6 +4,7 @@ using Messenger.Backend.Api.Core.Feature.Users.Commands.DeleteUser;
 using Messenger.Backend.Api.Core.Feature.Users.Commands.UpdateUser;
 using Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserDetails;
 using Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserList;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,6 +32,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns UserListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserListVm>> GetAll()
         {
@@ -53,8 +55,9 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns UserDetailsVm</returns>
         /// <response code="200">Success</response>
         [HttpGet("{id}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<UserDetailsVm>> Get(Guid id)
+        public async Task<ActionResult<UserDetailsVm>> Get([FromRoute] Guid id)
         {
             var query = new GetUserDetailsQuery
             {
@@ -80,6 +83,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpPut]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
         {
@@ -99,8 +103,9 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpDelete("{id}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete([FromBody] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var command = new DeleteUserCommand
             {

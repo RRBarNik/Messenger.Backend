@@ -5,6 +5,7 @@ using Messenger.Backend.Api.Core.Feature.Chats.Commands.DeleteChat;
 using Messenger.Backend.Api.Core.Feature.Chats.Commands.UpdateChat;
 using Messenger.Backend.Api.Core.Feature.Chats.Queries.GetChatList;
 using Messenger.Backend.Api.Core.Feature.Messages.Queries.GetMessageList;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,6 +33,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns ChatListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ChatListVm>> GetAll()
         {
@@ -54,8 +56,9 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{chatId}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<MessageListVm>> Get(Guid chatId)
+        public async Task<ActionResult<MessageListVm>> Get([FromRoute] Guid chatId)
         {
             var query = new GetMessageListQuery
             {
@@ -79,6 +82,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns id (guid)</returns>
         /// <response code="201">Success</response>
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateChatDto createChatDto)
         {
@@ -101,6 +105,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpPut]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Update([FromBody] UpdateChatDto updateChatDto)
         {
@@ -120,8 +125,9 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpDelete("{id}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete([FromBody] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var command = new DeleteChatCommand
             {

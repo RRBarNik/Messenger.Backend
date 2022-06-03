@@ -2,6 +2,7 @@
 using Messenger.Backend.Api.Core.Feature.Authorization.Commands.Register;
 using Messenger.Backend.Api.Core.Feature.Authorization.Queries.Login;
 using Messenger.Backend.Api.Core.Feature.Authorization.Queries.RefreshToken;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -80,6 +81,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns new access token and refresh token</returns>
         /// <response code="200">Success</response>
         [HttpPost("refreshToken")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenQuery request)
         {

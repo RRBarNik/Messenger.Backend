@@ -3,6 +3,7 @@ using Messenger.Backend.Api.Api.Models.Message;
 using Messenger.Backend.Api.Core.Feature.Messages.Commands.CreateMessage;
 using Messenger.Backend.Api.Core.Feature.Messages.Commands.DeleteMessage;
 using Messenger.Backend.Api.Core.Feature.Messages.Commands.UpdateMessage;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -34,6 +35,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns id (guid)</returns>
         /// <response code="201">Success</response>
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateMessageDto createMessageDto)
         {
@@ -57,6 +59,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpPut]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Update([FromBody] UpdateMessageDto updateMessageDto)
         {
@@ -77,8 +80,9 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         [HttpDelete("{id}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete([FromBody] DeleteMessageDto deleteMessageDto)
+        public async Task<IActionResult> Delete([FromRoute] DeleteMessageDto deleteMessageDto)
         {
             var command = _mapper.Map<DeleteMessageCommand>(deleteMessageDto);
             command.UserId = UserId.ToString();
