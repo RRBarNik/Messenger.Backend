@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Messenger.Backend.Api.Core.Common.Mappings;
-using Messenger.Backend.Api.Core.Messages.Commands.DeleteMessage;
+using Messenger.Backend.Api.Core.Feature.Messages.Commands.DeleteMessage;
 using System;
 
 namespace Messenger.Backend.Api.Api.Models.Message

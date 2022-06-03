@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Messenger.Backend.Api.Api.Models.Message;
-using Messenger.Backend.Api.Core.Messages.Commands.CreateMessage;
-using Messenger.Backend.Api.Core.Messages.Commands.DeleteMessage;
-using Messenger.Backend.Api.Core.Messages.Commands.UpdateMessage;
+using Messenger.Backend.Api.Core.Feature.Messages.Commands.CreateMessage;
+using Messenger.Backend.Api.Core.Feature.Messages.Commands.DeleteMessage;
+using Messenger.Backend.Api.Core.Feature.Messages.Commands.UpdateMessage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -38,7 +38,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         public async Task<ActionResult<Guid>> Create([FromBody] CreateMessageDto createMessageDto)
         {
             var command = _mapper.Map<CreateMessageCommand>(createMessageDto);
-            command.UserId = UserId;
+            command.UserId = UserId.ToString();
             var chatId = await Mediator.Send(command);
             return Ok(chatId);
         }
@@ -61,7 +61,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateMessageDto updateMessageDto)
         {
             var command = _mapper.Map<UpdateMessageCommand>(updateMessageDto);
-            command.UserId = UserId;
+            command.UserId = UserId.ToString();
             await Mediator.Send(command);
             return NoContent();
         }
@@ -81,7 +81,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         public async Task<IActionResult> Delete([FromBody] DeleteMessageDto deleteMessageDto)
         {
             var command = _mapper.Map<DeleteMessageCommand>(deleteMessageDto);
-            command.UserId = UserId;
+            command.UserId = UserId.ToString();
             await Mediator.Send(command);
             return NoContent();
         }

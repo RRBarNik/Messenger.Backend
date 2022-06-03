@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Messenger.Backend.Api.Core.Chats.Commands.CreateChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.CreateChat;
 using Messenger.Backend.Api.Core.Common.Mappings;
 
 namespace Messenger.Backend.Api.Api.Models.Chat

@@ -30,11 +30,11 @@ namespace Messenger.Backend.Api.Core.Entities
         /// <summary>
         /// Идентификатор пользователя, который создал сообщение
         /// </summary>
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Пользователь, который создал сообщение
         /// </summary>
-        public User? User { get; set; }
+        public AppUser? User { get; set; }
     }
 }

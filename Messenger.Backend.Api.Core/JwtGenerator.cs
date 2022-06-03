@@ -1,6 +1,5 @@
 ﻿using Messenger.Backend.Api.Core.Abstractions;
 using Messenger.Backend.Api.Core.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -20,7 +19,7 @@ namespace Messenger.Backend.Api.Core
         public JwtGenerator(IMessengerDbContext dbContext, IConfiguration configuration) =>
             (_dbContext, Configuration) = (dbContext, configuration);
 
-        public async Task<AuthenticationResult> CreateTokenAsync(IdentityUser user,
+        public async Task<AuthenticationResult> CreateTokenAsync(AppUser user,
             CancellationToken cancellationToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -3,6 +3,7 @@ using Messenger.Backend.Api.Api.Services;
 using Messenger.Backend.Api.Core;
 using Messenger.Backend.Api.Core.Abstractions;
 using Messenger.Backend.Api.Core.Common.Mappings;
+using Messenger.Backend.Api.Core.Entities;
 using Messenger.Backend.Api.Data.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,7 +43,7 @@ namespace Messenger.Backend.Api.Api
                 .AddPostgreSql(Configuration)
                 .AddControllers();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<MessengerDbContext>();
 
             var tokenValidationParameters = new TokenValidationParameters

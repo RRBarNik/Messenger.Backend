@@ -1,7 +1,6 @@
 ﻿using Messenger.Backend.Api.Core.Abstractions;
 using Messenger.Backend.Api.Core.Entities;
 using Messenger.Backend.Api.Data.PostgreSql.Configurations;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +17,7 @@ namespace Messenger.Backend.Api.Data.PostgreSql
         {
         }
 
-        /// <summary>
-        /// Пользователи
-        /// </summary>
-        public DbSet<User> Users { get; set; }
+        public DbSet<AppUser> Users { get; set; }
 
         /// <summary>
         /// Чаты
@@ -35,14 +31,11 @@ namespace Messenger.Backend.Api.Data.PostgreSql
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-        public DbSet<IdentityUser> IdentityUsers { get; set; }
-
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
             modelBuilder.ApplyConfiguration(new ChatConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

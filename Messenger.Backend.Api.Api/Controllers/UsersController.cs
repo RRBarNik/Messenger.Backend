@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Messenger.Backend.Api.Api.Models.User;
-using Messenger.Backend.Api.Core.Users.Commands.CreateUser;
-using Messenger.Backend.Api.Core.Users.Commands.DeleteUser;
-using Messenger.Backend.Api.Core.Users.Commands.UpdateUser;
-using Messenger.Backend.Api.Core.Users.Queries.GetUserDetails;
-using Messenger.Backend.Api.Core.Users.Queries.GetUserList;
+using Messenger.Backend.Api.Core.Feature.Users.Commands.DeleteUser;
+using Messenger.Backend.Api.Core.Feature.Users.Commands.UpdateUser;
+using Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserDetails;
+using Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,7 +31,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns UserListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserListVm>> GetAll()
         {
             var query = new GetUserListQuery
@@ -59,35 +58,10 @@ namespace Messenger.Backend.Api.Api.Controllers
         {
             var query = new GetUserDetailsQuery
             {
-                Id = id,
+                Id = id.ToString(),
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
-        }
-
-        /// <summary>
-        /// Creates the user
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// POST /user
-        /// {
-        ///     nickname: "User Nickname",
-        ///     firstname: "User Firstname",
-        ///     lastname: "User Lastname"
-        /// }
-        /// </remarks>
-        /// <param name="createUserDto">CreateUserDto object</param>
-        /// <returns>Returns id (guid)</returns>
-        /// <response code="201">Success</response>
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateUserDto createUserDto)
-        {
-            var command = _mapper.Map<CreateUserCommand>(createUserDto);
-            command.UserId = UserId;
-            var userId = await Mediator.Send(command);
-            return Ok(userId);
         }
 
         /// <summary>
@@ -130,7 +104,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         {
             var command = new DeleteUserCommand
             {
-                UserId = id,
+                UserId = id.ToString(),
             };
             await Mediator.Send(command);
             return NoContent();

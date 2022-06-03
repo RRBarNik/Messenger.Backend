@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Messenger.Backend.Api.Api.Models.Chat;
-using Messenger.Backend.Api.Core.Chats.Commands.CreateChat;
-using Messenger.Backend.Api.Core.Chats.Commands.DeleteChat;
-using Messenger.Backend.Api.Core.Chats.Commands.UpdateChat;
-using Messenger.Backend.Api.Core.Chats.Queries.GetChatList;
-using Messenger.Backend.Api.Core.Messages.Queries.GetMessageList;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.CreateChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.DeleteChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.UpdateChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Queries.GetChatList;
+using Messenger.Backend.Api.Core.Feature.Messages.Queries.GetMessageList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,12 +32,12 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns ChatListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ChatListVm>> GetAll()
         {
             var query = new GetChatListQuery
             {
-                UserId = UserId,
+                UserId = UserId.ToString(),
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);
@@ -54,7 +54,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{chatId}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<MessageListVm>> Get(Guid chatId)
         {
             var query = new GetMessageListQuery

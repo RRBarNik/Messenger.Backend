@@ -1,7 +1,6 @@
 ﻿using Messenger.Backend.Api.Core.Abstractions;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Messenger.Backend.Api.Api.Services
