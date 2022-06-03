@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Security.Claims;
 
 namespace Messenger.Backend.Api.Api.Controllers
 {
@@ -16,6 +15,6 @@ namespace Messenger.Backend.Api.Api.Controllers
 
         internal Guid UserId => !User.Identity.IsAuthenticated
             ? Guid.Empty
-            : Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            : Guid.Parse(User.FindFirst("id").Value);
     }
 }

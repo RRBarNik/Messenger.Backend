@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using Messenger.Backend.Api.Core.Abstractions;
 using Messenger.Backend.Api.Core.Common.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -18,6 +19,7 @@ namespace Messenger.Backend.Api.Core
         /// <returns>Контейнер зависимостей</returns>
         public static IServiceCollection AddCore(this IServiceCollection services)
         {
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>),

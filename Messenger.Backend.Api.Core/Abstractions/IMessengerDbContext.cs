@@ -1,4 +1,5 @@
 ﻿using Messenger.Backend.Api.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace Messenger.Backend.Api.Core.Abstractions
         /// Сообщения
         /// </summary>
         DbSet<Message> Messages { get; }
+
+        DbSet<RefreshToken> RefreshTokens { get; }
 
         /// <summary>
         /// Сохранить изменения единицы работы

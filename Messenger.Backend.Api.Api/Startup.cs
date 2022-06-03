@@ -1,18 +1,22 @@
 using Messenger.Backend.Api.Api.Middleware;
-using Messenger.Backend.Api.Api.Sevices;
+using Messenger.Backend.Api.Api.Services;
 using Messenger.Backend.Api.Core;
 using Messenger.Backend.Api.Core.Abstractions;
 using Messenger.Backend.Api.Core.Common.Mappings;
 using Messenger.Backend.Api.Data.PostgreSql;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
+using System.Text;
 
 namespace Messenger.Backend.Api.Api
 {
@@ -38,6 +42,33 @@ namespace Messenger.Backend.Api.Api
                 .AddPostgreSql(Configuration)
                 .AddControllers();
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<MessengerDbContext>();
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey =
+                            new SymmetricSecurityKey(
+                                Encoding.ASCII.GetBytes(Configuration["JwtSettings:Secret"])),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                RequireExpirationTime = false,
+                ValidateLifetime = true
+            };
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = tokenValidationParameters;
+                });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -55,6 +86,7 @@ namespace Messenger.Backend.Api.Api
             services.AddSwaggerGen();
             services.AddApiVersioning();
 
+            services.AddSingleton(tokenValidationParameters);
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
             services.AddHttpContextAccessor();
         }
@@ -66,6 +98,8 @@ namespace Messenger.Backend.Api.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseSwagger();
             app.UseSwaggerUI(config =>

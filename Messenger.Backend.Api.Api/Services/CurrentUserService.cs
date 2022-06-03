@@ -1,9 +1,10 @@
 ﻿using Messenger.Backend.Api.Core.Abstractions;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Messenger.Backend.Api.Api.Sevices
+namespace Messenger.Backend.Api.Api.Services
 {
     public class CurrentUserService : ICurrentUserService
     {
@@ -17,7 +18,7 @@ namespace Messenger.Backend.Api.Api.Sevices
             get
             {
                 var id = _httpContextAccessor.HttpContext?.User?
-                    .FindFirstValue(ClaimTypes.NameIdentifier);
+                    .FindFirstValue("id");
                 return string.IsNullOrEmpty(id) ? Guid.Empty : Guid.Parse(id);
             }
         }
