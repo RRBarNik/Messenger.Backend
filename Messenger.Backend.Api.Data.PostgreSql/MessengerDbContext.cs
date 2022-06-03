@@ -1,11 +1,13 @@
 ﻿using Messenger.Backend.Api.Core.Abstractions;
 using Messenger.Backend.Api.Core.Entities;
 using Messenger.Backend.Api.Data.PostgreSql.Configurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Messenger.Backend.Api.Data.PostgreSql
 {
-    public class MessengerDbContext : DbContext, IMessengerDbContext
+    public class MessengerDbContext : IdentityDbContext, IMessengerDbContext
     {
         /// <summary>
         /// Конструктор
@@ -30,6 +32,10 @@ namespace Messenger.Backend.Api.Data.PostgreSql
         /// Сообщения
         /// </summary>
         public DbSet<Message> Messages { get; set; }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+        public DbSet<IdentityUser> IdentityUsers { get; set; }
 
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
