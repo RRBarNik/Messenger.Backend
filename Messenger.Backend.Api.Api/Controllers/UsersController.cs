@@ -31,7 +31,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns UserListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserListVm>> GetAll()
         {
             var query = new GetUserListQuery

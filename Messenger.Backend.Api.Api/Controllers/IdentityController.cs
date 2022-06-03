@@ -2,6 +2,7 @@
 using Messenger.Backend.Api.Core.Feature.Authorization.Commands.Register;
 using Messenger.Backend.Api.Core.Feature.Authorization.Queries.Login;
 using Messenger.Backend.Api.Core.Feature.Authorization.Queries.RefreshToken;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Messenger.Backend.Api.Api.Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Produces("application/json")]
-    [Route("api/[controller]/[action]")]
+    [Route("api/{version:apiVersion}/[controller]")]
     public class IdentityController : BaseController
     {
         private readonly IMapper _mapper;
@@ -18,21 +19,68 @@ namespace Messenger.Backend.Api.Api.Controllers
         public IdentityController(IMapper mapper) =>
             _mapper = mapper;
 
-        [HttpPost]
+        /// <summary>
+        /// Register the user
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// POST /message
+        /// {
+        ///     email: "UserEmail@mail.ru",
+        ///     password: "UserPassword#1#"
+        /// }
+        /// </remarks>
+        /// <param name="request">RegisterCommnad object</param>
+        /// <returns>Returns access token and refresh token</returns>
+        /// <response code="201">Success</response>
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Register([FromBody] RegisterCommand request)
         {
             var result = await Mediator.Send(request);
             return Ok(result);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Login the user
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// POST /message
+        /// {
+        ///     email: "UserEmail@mail.ru",
+        ///     password: "UserPassword#1#"
+        /// }
+        /// </remarks>
+        /// <param name="request">LoginQuery object</param>
+        /// <returns>Returns access token and refresh token</returns>
+        /// <response code="200">Success</response>
+        [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromBody] LoginQuery request)
         {
             var result = await Mediator.Send(request);
             return Ok(result);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Refresh the tokens
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// POST /message
+        /// {
+        ///     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+        ///     eyJzdWIiOiJOaWtpdGEiLCJqdGkiOiIzZTYyNjczYS0zY2Y5LTQ0NDAtOTMzYy05OWZlMzdmNzMw.
+        ///     21aFlF47XRRTz8Vi714qQW55tInJ0fgdD0SmK9IHjZs",
+        ///     "refreshToken": "1cd48cea-8de8-47e2-9711-25ae8b68bb81"
+        /// }
+        /// </remarks>
+        /// <param name="request">RefreshTokenQuery object</param>
+        /// <returns>Returns new access token and refresh token</returns>
+        /// <response code="200">Success</response>
+        [HttpPost("refreshToken")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenQuery request)
         {
             var result = await Mediator.Send(request);

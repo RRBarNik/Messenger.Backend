@@ -32,7 +32,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <returns>Returns ChatListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ChatListVm>> GetAll()
         {
             var query = new GetChatListQuery
@@ -54,7 +54,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{chatId}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<MessageListVm>> Get(Guid chatId)
         {
             var query = new GetMessageListQuery

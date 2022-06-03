@@ -1,6 +1,5 @@
 ﻿using Messenger.Backend.Api.Core.Abstractions;
 using Messenger.Backend.Api.Core.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
