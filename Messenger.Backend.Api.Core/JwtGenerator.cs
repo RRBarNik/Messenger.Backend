@@ -20,7 +20,7 @@ namespace Messenger.Backend.Api.Core
         public JwtGenerator(IMessengerDbContext dbContext, IConfiguration configuration) =>
             (_dbContext, Configuration) = (dbContext, configuration);
 
-        public async Task<AuthenticationResult> CreateTokenAsync(IdentityUser user,
+        public async Task<AuthenticationResult> CreateTokenAsync(AppUser user,
             CancellationToken cancellationToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

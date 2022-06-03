@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Messenger.Backend.Api.Core.Authorization.Commands.Register;
-using Messenger.Backend.Api.Core.Authorization.Queries.Login;
-using Messenger.Backend.Api.Core.Authorization.Queries.RefreshToken;
+using Messenger.Backend.Api.Core.Feature.Authorization.Commands.Register;
+using Messenger.Backend.Api.Core.Feature.Authorization.Queries.Login;
+using Messenger.Backend.Api.Core.Feature.Authorization.Queries.RefreshToken;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

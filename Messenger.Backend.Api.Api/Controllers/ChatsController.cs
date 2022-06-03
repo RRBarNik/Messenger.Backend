@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Messenger.Backend.Api.Api.Models.Chat;
-using Messenger.Backend.Api.Core.Chats.Commands.CreateChat;
-using Messenger.Backend.Api.Core.Chats.Commands.DeleteChat;
-using Messenger.Backend.Api.Core.Chats.Commands.UpdateChat;
-using Messenger.Backend.Api.Core.Chats.Queries.GetChatList;
-using Messenger.Backend.Api.Core.Messages.Queries.GetMessageList;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.CreateChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.DeleteChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.UpdateChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Queries.GetChatList;
+using Messenger.Backend.Api.Core.Feature.Messages.Queries.GetMessageList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -37,7 +37,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         {
             var query = new GetChatListQuery
             {
-                UserId = UserId,
+                UserId = UserId.ToString(),
             };
             var vm = await Mediator.Send(query);
             return Ok(vm);

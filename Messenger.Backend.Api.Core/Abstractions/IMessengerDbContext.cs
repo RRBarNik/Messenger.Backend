@@ -8,10 +8,7 @@ namespace Messenger.Backend.Api.Core.Abstractions
 {
     public interface IMessengerDbContext
     {
-        /// <summary>
-        /// Пользователи
-        /// </summary>
-        DbSet<User> Users { get; }
+        DbSet<AppUser> Users { get; }
 
         /// <summary>
         /// Чаты

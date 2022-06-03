@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Messenger.Backend.Api.Core.Chats.Commands.UpdateChat;
+using Messenger.Backend.Api.Core.Feature.Chats.Commands.UpdateChat;
 using Messenger.Backend.Api.Core.Common.Mappings;
 using System;
 

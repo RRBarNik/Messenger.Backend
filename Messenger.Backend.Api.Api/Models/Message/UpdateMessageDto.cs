@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Messenger.Backend.Api.Core.Common.Mappings;
-using Messenger.Backend.Api.Core.Messages.Commands.UpdateMessage;
+using Messenger.Backend.Api.Core.Feature.Messages.Commands.UpdateMessage;
 using System;
 using System.ComponentModel.DataAnnotations;
 
