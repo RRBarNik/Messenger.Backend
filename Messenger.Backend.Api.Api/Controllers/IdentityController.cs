@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Messenger.Backend.Api.Core.Entities;
 using Messenger.Backend.Api.Core.Feature.Authorization.Commands.Register;
 using Messenger.Backend.Api.Core.Feature.Authorization.Queries.Login;
 using Messenger.Backend.Api.Core.Feature.Authorization.Queries.RefreshToken;
@@ -9,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace Messenger.Backend.Api.Api.Controllers
 {
-    [ApiController]
     [ApiVersion("1.0")]
     [Produces("application/json")]
-    [Route("api/{version:apiVersion}/[controller]")]
+    [Route("api/{version:apiVersion}/")]
     public class IdentityController : BaseController
     {
         private readonly IMapper _mapper;
@@ -27,16 +27,18 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// Sample request:
         /// POST /message
         /// {
-        ///     email: "UserEmail@mail.ru",
-        ///     password: "UserPassword#1#"
+        ///     email: "UserEmail",
+        ///     password: "UserPassword#1#",
+        ///     firstname: "firstname",
+        ///     lastname: "lastname"
         /// }
         /// </remarks>
         /// <param name="request">RegisterCommnad object</param>
-        /// <returns>Returns access token and refresh token</returns>
+        /// <returns>Returns access token, refresh token and user information</returns>
         /// <response code="201">Success</response>
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Register([FromBody] RegisterCommand request)
+        public async Task<ActionResult<RegisterResultVm>> Register([FromBody] RegisterCommand request)
         {
             var result = await Mediator.Send(request);
             return Ok(result);
@@ -49,8 +51,8 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// Sample request:
         /// POST /message
         /// {
-        ///     email: "UserEmail@mail.ru",
-        ///     password: "UserPassword#1#"
+        ///     email: "UserEmail",
+        ///     password: "UserPassword#1#",
         /// }
         /// </remarks>
         /// <param name="request">LoginQuery object</param>
@@ -58,7 +60,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         /// <response code="200">Success</response>
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Login([FromBody] LoginQuery request)
+        public async Task<ActionResult<LoginResultVm>> Login([FromBody] LoginQuery request)
         {
             var result = await Mediator.Send(request);
             return Ok(result);
@@ -83,7 +85,7 @@ namespace Messenger.Backend.Api.Api.Controllers
         [HttpPost("refreshToken")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Refresh([FromBody] RefreshTokenQuery request)
+        public async Task<ActionResult<AuthenticationResult>> Refresh([FromBody] RefreshTokenQuery request)
         {
             var result = await Mediator.Send(request);
             return Ok(result);

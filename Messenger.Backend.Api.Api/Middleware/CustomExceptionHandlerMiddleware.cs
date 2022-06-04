@@ -42,6 +42,10 @@ namespace Messenger.Backend.Api.Api.Middleware
                 case NotFoundException:
                     code = HttpStatusCode.NotFound;
                     break;
+                case AuthenticationException authenticationException:
+                    code = HttpStatusCode.BadRequest;
+                    result = JsonSerializer.Serialize(authenticationException.Message);
+                    break;
             }
 
             context.Response.ContentType = "application/json";

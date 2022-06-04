@@ -1,7 +1,11 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Messenger.Backend.Api.Core.Abstractions;
+using Messenger.Backend.Api.Core.Common.Exceptions;
 using Messenger.Backend.Api.Core.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,45 +13,65 @@ using System.Threading.Tasks;
 namespace Messenger.Backend.Api.Core.Feature.Authorization.Commands.Register
 {
     public class RegisterHandler
-            : IRequestHandler<RegisterCommand, AuthenticationResult>
+            : IRequestHandler<RegisterCommand, RegisterResultVm>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtGenerator _jwtGenerator;
+        private readonly IMessengerDbContext _dbContext;
+        private readonly IMapper _mapper;
 
         public RegisterHandler(UserManager<AppUser> userManager, 
-            IJwtGenerator jwtGenerator) =>
-            (_userManager, _jwtGenerator) = (userManager, jwtGenerator);
+            IJwtGenerator jwtGenerator,
+            IMessengerDbContext dbContext,
+            IMapper mapper)
+        {
+            _userManager = userManager;
+            _jwtGenerator = jwtGenerator;
+            _dbContext = dbContext;
+            _mapper = mapper;
+        }
 
-        public async Task<AuthenticationResult> Handle(RegisterCommand request,
+        public async Task<RegisterResultVm> Handle(RegisterCommand request,
             CancellationToken cancellationToken)
         {
             var existingUser = await _userManager.FindByEmailAsync(request.Email);
 
             if (existingUser != null)
             {
-                return new AuthenticationResult
-                {
-                    Errors = new[] { "User with this email address already exists" }
-                };
+                throw new AuthenticationException("User with this email address already exists");
             }
 
             var newUser = new AppUser
             {
                 Email = request.Email,
-                UserName = request.Email
+                UserName = request.Email,
+                Firstname = request.Firstname,
+                Lastname = request.Lastname,
+                DateOfCreation = DateTime.Now,
+                Id = Guid.NewGuid().ToString()
             };
 
             var createdUser = await _userManager.CreateAsync(newUser, request.Password);
 
             if (!createdUser.Succeeded)
             {
-                return new AuthenticationResult
-                {
-                    Errors = createdUser.Errors.Select(x => x.Description)
-                };
+                throw new AuthenticationException(
+                    string.Join(",", createdUser.Errors.Select(x => x.Description)));
             }
 
-            return await _jwtGenerator.CreateTokenAsync(newUser, cancellationToken);
+            var entity = await _dbContext.Users
+                .FirstOrDefaultAsync(user =>
+                user.Id == newUser.Id, cancellationToken);
+
+            var tokens = await _jwtGenerator.CreateTokenAsync(entity, cancellationToken);
+            var userDto = _mapper.Map<RegisterUserDto>(entity);
+
+            return new RegisterResultVm
+            {
+                Token = tokens.Token,
+                RefreshToken = tokens.RefreshToken,
+                User = userDto
+            };
         }
     }
 }

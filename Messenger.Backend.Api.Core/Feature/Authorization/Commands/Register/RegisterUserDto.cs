@@ -2,9 +2,9 @@
 using Messenger.Backend.Api.Core.Common.Mappings;
 using Messenger.Backend.Api.Core.Entities;
 
-namespace Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserList
+namespace Messenger.Backend.Api.Core.Feature.Authorization.Commands.Register
 {
-    public class UserLookupDto : IMapWith<AppUser>
+    public class RegisterUserDto : IMapWith<AppUser>
     {
         /// <summary>
         /// Идентификатор пользователя
@@ -28,7 +28,7 @@ namespace Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserList
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AppUser, UserLookupDto>()
+            profile.CreateMap<AppUser, RegisterUserDto>()
                 .ForMember(userDto => userDto.Id,
                 opt => opt.MapFrom(user => user.Id))
                 .ForMember(userDto => userDto.Firstname,

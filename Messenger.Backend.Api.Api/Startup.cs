@@ -70,15 +70,7 @@ namespace Messenger.Backend.Api.Api
                     x.TokenValidationParameters = tokenValidationParameters;
                 });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", policy =>
-                {
-                    policy.AllowAnyHeader();
-                    policy.AllowAnyMethod();
-                    policy.AllowAnyOrigin();
-                });
-            });
+            services.AddCors();
 
             services.AddVersionedApiExplorer(options =>
                 options.GroupNameFormat = "'v'VVV");
@@ -115,11 +107,16 @@ namespace Messenger.Backend.Api.Api
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
+                .AllowCredentials());
+
             app.UseAuthorization();
 
             app.UseHttpsRedirection();
-
-            app.UseCors(builder => builder.AllowCredentials().WithOrigins("http://localhost:3000")/*"AllowAll"*/);
 
             app.UseApiVersioning();
 

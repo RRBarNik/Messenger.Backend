@@ -25,7 +25,7 @@ namespace Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserDetails
         /// <summary>
         /// Никнейм
         /// </summary>
-        public string UserName { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Дата создания
@@ -41,8 +41,8 @@ namespace Messenger.Backend.Api.Core.Feature.Users.Queries.GetUserDetails
                     opt => opt.MapFrom(user => user.Firstname))
                 .ForMember(userVm => userVm.Lastname,
                     opt => opt.MapFrom(user => user.Lastname))
-                .ForMember(userVm => userVm.UserName,
-                    opt => opt.MapFrom(user => user.UserName))
+                .ForMember(userVm => userVm.Email,
+                    opt => opt.MapFrom(user => user.Email))
                 .ForMember(userVm => userVm.DateOfCreation,
                     opt => opt.MapFrom(user => user.DateOfCreation));
         }
