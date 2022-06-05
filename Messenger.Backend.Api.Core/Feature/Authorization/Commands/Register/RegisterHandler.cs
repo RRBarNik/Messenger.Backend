@@ -68,7 +68,7 @@ namespace Messenger.Backend.Api.Core.Feature.Authorization.Commands.Register
 
             return new RegisterResultVm
             {
-                Token = tokens.Token,
+                AccessToken = tokens.Token,
                 RefreshToken = tokens.RefreshToken,
                 User = userDto
             };

@@ -47,7 +47,7 @@ namespace Messenger.Backend.Api.Core.Feature.Authorization.Queries.Login
 
             return new LoginResultVm
             {
-                Token = tokens.Token,
+                AccessToken = tokens.Token,
                 RefreshToken = tokens.RefreshToken,
                 User = userDto
             };
