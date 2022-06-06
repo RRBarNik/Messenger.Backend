@@ -13,6 +13,11 @@ namespace Messenger.Backend.Api.Core.Feature.Messages.Queries.GetMessageList
         public string Body { get; set; }
 
         /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
         /// Дата создания сообщения
         /// </summary>
         public DateTimeOffset DateOfCreation { get; set; }
@@ -23,7 +28,9 @@ namespace Messenger.Backend.Api.Core.Feature.Messages.Queries.GetMessageList
                 .ForMember(messageDto => messageDto.DateOfCreation,
                     opt => opt.MapFrom(message => message.DateOfCreation))
                 .ForMember(messageDto => messageDto.Body,
-                    opt => opt.MapFrom(message => message.Body));
+                    opt => opt.MapFrom(message => message.Body))
+                .ForMember(messageDto => messageDto.UserId,
+                    opt => opt.MapFrom(message => message.UserId));
         }
     }
 }

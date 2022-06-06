@@ -29,6 +29,9 @@ namespace Messenger.Backend.Api.Data.PostgreSql
         /// </summary>
         public DbSet<Message> Messages { get; set; }
 
+        /// <summary>
+        /// Токены обновления
+        /// </summary>
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         /// <inheritdoc/>
